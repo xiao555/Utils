@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <title>识别chrome版本以及Android版本</title>
+</head>
+<body>
+<script type="text/javascript">
+// If Amin & Amax is set , returns true if the android version between Amin and Amax
+// and chrome version between min and max ,
+// If Amin & Amax is not set, returns true if chrome version between min and max.
+function queDevice(Cmin, Cmax, Amin=0, Amax=999) {
+  var ua = navigator['userAgent'];
+  var regExChrome = new RegExp(/Chrome\/([\d\.]+)/);
+  var regExAndroid = new RegExp(/Android\s([\d\.]+)/);
+  var resultChromeRegEx = regExChrome["exec"](ua);
+  var resultAndroidRegEx = regExAndroid["exec"](ua);
+  var chromeVersion = (resultChromeRegEx === null ? null : regExChrome["exec"](ua)[1]);
+  var av = (resultAndroidRegEx === null ? null : regExAndroid["exec"](ua)[1]);
+  var cv = chromeVersion===null? 0 : chromeVersion.substr(0,2);
+  if ( cv >= Cmin && cv <= Cmax ) {
+    return (av >= Amin && av <= Amax );
+  } else {
+    return false;
+  }
+}
+
+function deviceInfo() {
+  var ua = navigator['userAgent'];
+  var regExChrome = new RegExp(/Chrome\/([\d\.]+)/);
+  var regExAndroid = new RegExp(/Android\s([\d\.]+)/);
+  var resultChromeRegEx = regExChrome["exec"](ua);
+  var resultAndroidRegEx = regExAndroid["exec"](ua);
+  var chromeVersion = (resultChromeRegEx === null ? null : regExChrome["exec"](ua)[1]);
+  var av = (resultAndroidRegEx === null ? null : regExAndroid["exec"](ua)[1]);
+  document.writeln('chromeVersion: ' + chromeVersion);
+  document.writeln('androidVersion: ' + av);
+}
+</script>
+</body>
+</html>
