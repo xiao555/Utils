@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)file:///C:/Users/XIAO555/Desktop/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<title>首字母大写</title>
+<style>
+
+	* {
+		font-family: "微软雅黑";
+	}
+    html {
+    	margin: 0;
+    	padding: 0;
+    }
+	
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	h1 {
+		margin: 0;
+	}
+	.alert{
+		position: absolute;
+		left: 0;
+		top: 150px;
+		width: 200px;
+		border: 3px solid  cadetblue;
+	}
+	.textarea {
+		margin-top: 100px;
+		margin-left: 220px;
+	}
+	
+	.textarea textarea {
+		width: 1000px;
+		height: 400px;
+	}
+	.textarea .button {
+		width: 100px;
+		margin-top: 10px;
+		height: 40px;
+		line-height: 40px;		
+	}
+	
+	.button button {
+		width 100px;
+		height: 40px;
+		background-color: cornflowerblue;
+		border: 3px solid cornflowerblue;
+		border-radius: 5px;
+		color: #fff;
+		cursor: pointer;
+	}
+	
+	.header {
+		position: absolute;
+		font-family: "微软雅黑";
+		color: #fff;
+		top: 0;
+		width: 100%;
+		height: 50px;
+		line-height: 50px;
+		text-align: center;
+		background-color: cornflowerblue;
+	}
+</style></head>
+
+<body>
+	<div class="header">
+		<div>
+			<h1>Dear XueLian</h1>
+		</div>
+	</div>
+	<div class="alert">
+		<h2>温馨提示：</h2>
+		<p>本程序只考虑了以句号、问号、感叹号(英文输入法)结尾的情况,如果还有其他情况请联系我</p>
+		<p>QQ:1335497539</p>
+	</div>
+	<div class="textarea">
+		<div>
+			<span>请输入英文：</span>
+		</div>
+  		<textarea id="text" rows="20" cols="30" style="margin: 0px; width: 1000px; height: 400px;"></textarea>
+  		<div class="button">
+  			<button id="action">转换</button>
+  		</div>
+  	</div>
+
+<script type="application/javascript">
+	
+	//string[n]之后的第一个字母大写
+	function nextToUp(string,n) {
+		var i = n;
+		console.log(i + ' ' + string.length);
+		if(i == string.length - 1) return string;//到了文本结尾
+		for(i++;i < string.length;i++){
+			if(string[i] >= 'a'&&string[i] <= 'z'){
+				
+				return string.slice(0,i) + string.charAt(i).toUpperCase() + string.slice(i+1); 
+			}
+		}
+	}
+	
+   
+   document.getElementById('action').onclick = function(){
+   		
+   		var text = document.getElementById('text');
+		//获取文本
+		var textString = text.value;
+		
+		var sentenceNum = 0;
+		
+		console.log('输入的值是：'+ textString);
+		//第一个字母大写
+		for(var n = 0;n < textString.length;n++){
+			if(textString[n] >= 'a' && textString[n] <= 'z') {
+				textString = textString.slice(0,n) + textString.charAt(n).toUpperCase() + textString.slice(n+1);
+				break;
+			}
+		}
+		//去掉最后的\n
+		for(n = textString.length -1;;n--){
+			if(textString[n] != '\n') break;
+			textString = textString.slice(0,n);
+		}
+		
+		console.log(textString + ' ' + textString.length);
+		//遇到标点符号后的第一个字母大写
+		for(var n = 0;n < textString.length;n++){
+			if(textString[n] == '.' || textString[n] == '?' || textString[n] == '!') {
+				console.log('第' + n + '个句末标点');
+				textString = nextToUp(textString,n);
+				sentenceNum ++;
+				console.log(textString);
+			}
+		}
+		
+		console.log(sentenceNum + 'sentence!');
+		text.value = textString;
+   }
+   
+</script>
+</body></html>
